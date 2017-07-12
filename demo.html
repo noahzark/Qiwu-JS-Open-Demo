@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DEMO</title>
+    <meta name="description" content="Centaurs Technologies is committed to bring more fun to the world. We proudly present Vocal Warrior--Worlds First Voice Command Mobile Fighting Game.">
+    <meta name="keywords" content="人马,齐悟,声动战士,机器人,人工智能,AI,Chewrobot,语义识别,服务机器人,智能客服,聊天机器人,Centaurstech,Centaurs Technologies,speech recognition,AI,Chewrobot,chatbot,business logic, customer serivce bot">
+    <meta name="author" content="CentaursTech">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/demo_style.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <style></style>
+</head>
+
+<body>
+<div id="cc_intro">
+<div class="container">
+<div class="row" id="title">
+<h2>HTML5接入DEMO</h2>
+</div>
+</div>
+</div>
+<div id="qw_dialog_box">
+<div class="container">
+<div class="dialog_window">
+<div class="row">
+<div class="col-md-4" id="qiwu-logo">
+<img class="qw_avator" src="http://www.centaurstech.com/images/product_qw.png">
+<!--img class="qw_qr" src="http://www.centaurstech.com/images/qw_qr_code.jpeg"-->
+</div>
+<div class="col-md-8">
+<div class="scroll-chat-box">
+<ul class="chat-list">
+</ul>
+</div>
+<div class="input-box">
+<span class="input-i">@</span>
+<input type="text" class="chat-input" placeholder="你是谁">
+</div>
+</div>
+<div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+
+<script type="text/javascript" src="./js/md5.min.js"></script>
+
+<script>
+var bot_endpoint = 'https://robot-service.centaurstech.com/api/chat'
+var appkey = 'open-demo'
+var appsecret = '123456789'
+var nickname = '张三李四王老五'
+var uid = Math.random() + ''
+
+function ask_question(msg, callback) {
+	var fd = new FormData()
+	fd.append('appkey', appkey)
+	var now = Date.now()
+	fd.append('timestamp', now)
+	fd.append('uid', uid)
+	var hash = md5(appsecret + uid + now)
+	fd.append('verify', hash)
+	fd.append('msg', msg)
+	fd.append('nickname', nickname)
+
+	$.ajax({
+		url: bot_endpoint,
+		type: "POST",
+		data: fd,
+		processData: false,
+		contentType: false,
+		success: function(data, status) {
+					if (data.msg != "") {
+						$('<li class="qw-message">\
+						  <div class="qw-avator"></div>\
+						  <div class="qw-message-content">' + data.msg + '</div>\
+				  </li>').appendTo(".chat-list");
+						$(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
+					}
+				},
+		error: function(xhr, ajaxOptions, thrownError) {
+			console.log("Status: " + xhr.status)
+			console.log(thrownError)
+
+		},
+	})
+}
+
+$(".chat-input").keydown(function(e) {
+	if (e.keyCode == 13) {
+		var question = $(".chat-input").val();
+		$(".chat-input").val("");
+
+
+		$('<li class="me-message">\
+				<span class="me-message-content">' + question + '</span>\
+			  </li>').appendTo(".chat-list");
+
+		$(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
+
+		ask_question(question)
+	}
+});
+
+$(document).ready(function() {
+	var search = location.search
+	if (search) {
+		appkey = search.substring(search.lastIndexOf("=")+1)
+		$('#title').html('<h1>知识库考核 ' + appkey + '</h1>')
+	}
+	ask_question('HELLO')
+})
+</script>
+
+
+</html>
