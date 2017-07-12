@@ -1,4 +1,4 @@
-# Qiwu HTML5 Sample
+# Qiwu Javascript Sample
 Author: Feliciano Long
 
 1. Remember to set user's nickname at Line 60 in demo.html
