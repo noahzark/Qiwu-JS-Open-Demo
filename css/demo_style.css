@@ -99,7 +99,7 @@ body {
     float: left;
     width: 63px;
     height: 63px;
-    background-image: url(/images/qw_avatar.png);
+    background-image: url(/images/qw_avatar.webp);
 }
 .qw-message-content {
     display: inline-block;
