@@ -71,4 +71,40 @@
 <!-- Demo function script -->
 <script type="text/javascript" src="./js/demo.js"></script>
 
+<!-- Overrides show_question and show_answer functions in demo.js -->
+<script>
+    function show_question(ask) {
+        $('<li class="me-message">\
+	        <span class="me-message-content">' + ask + '</span>\
+	    </li>').appendTo(".chat-list");
+
+        $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
+    }
+
+    function show_answer(reply) {
+        reply = reply.replaceAll('\n', '<br />')
+        $('<li class="qw-message">\
+			<div class="qw-avator"></div>\
+			<div class="qw-message-content">' + reply + '</div>\
+		</li>').appendTo(".chat-list");
+        $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
+    }
+</script>
+
+<!-- Add listener to input box and send HELLO when page is ready -->
+<script>
+    $(".chat-input").keydown(function(e) {
+        if (e.keyCode == 13) {
+            var question = $(".chat-input").val();
+            $(".chat-input").val("");
+
+            ask_question(question)
+        }
+    })
+
+    $(document).ready(function() {
+        ask_question('HELLO')
+    })
+</script>
+
 </html>
