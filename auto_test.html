@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DEMO</title>
+    <meta name="description" content="Centaurs Technologies is committed to bring more fun to the world.">
+    <meta name="keywords" content="人马,齐悟,声动战士,机器人,人工智能,AI,Chewrobot,语义识别,服务机器人,智能客服,聊天机器人,Centaurstech,Centaurs Technologies,speech recognition,AI,Chewrobot,chatbot,business logic, customer serivce bot">
+    <meta name="author" content="CentaursTech">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/demo_style.css">
+</head>
+
+<body>
+    <div id="cc_intro">
+        <div class="container">
+            <div class="row" id="title">
+                <h2>齐悟机器人图形化自动测试工具</h2>
+                <span id="app">test</span>
+            </div>
+        </div>
+    </div>
+    <div id="qw_dialog_box">
+        <div class="container">
+            <div class="dialog_window">
+                <div class="row">
+                    <div class="col-md-4" id="qiwu-logo">
+                        <img class="qw_avator" src="./images/product_qw.webp">
+                        <img class="qw_qr" src="./images/qw_qr_code.webp">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="scroll-chat-box">
+                            <ul class="chat-list">
+                            </ul>
+                        </div>
+                        <div class="input-box">
+                            <span class="input-i">@</span>
+                            <input type="text" class="chat-input" placeholder="你是谁">
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- CDN -->
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<!-- MD5 util -->
+<script type="text/javascript" src="./js/md5.min.js"></script>
+
+<!-- String replaceAll util -->
+<script type="text/javascript" src="./js/string_util.js"></script>
+
+<script>
+    // App information
+    var appkey = 'open-demo'
+    var appsecret = '123456789'
+
+    var nickname = '张三李四王老五'
+    var uid = Math.random() + ''
+</script>
+
+<!-- Core function script -->
+<script type="text/javascript" src="./js/core.js"></script>
+
+<!-- Overrides on_send_question and on_receive_answer functions in demo.js -->
+<script>
+    function on_send_question(ask) {
+        $('<li class="me-message">\
+	        <span class="me-message-content">' + ask + '</span>\
+	    </li>').appendTo(".chat-list");
+
+        $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
+    }
+
+    function on_receive_answer(reply) {
+        reply = reply.replaceAll('\n', '<br />')
+        $('<li class="qw-message">\
+			<div class="qw-avator"></div>\
+			<div class="qw-message-content">' + reply + '</div>\
+		</li>').appendTo(".chat-list");
+        $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
+    }
+
+    function send_hello() {
+        ask_question('HELLO')
+    }
+</script>
+
+<!-- Auto test script -->
+<script type="text/javascript" src="./js/auto_test.js"></script>
+
+<!-- Add listener to input box and send HELLO when page is ready -->
+<script>
+    $(".chat-input").keydown(function(e) {
+        if (e.keyCode == 13) {
+            var question = $(".chat-input").val();
+            $(".chat-input").val("");
+
+            ask_question(question)
+        }
+    })
+
+    $(document).ready(function() {
+        send_hello()
+    })
+</script>
+
+</html>
