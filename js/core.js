@@ -1,15 +1,15 @@
 var bot_endpoint = 'https://robot-service.centaurstech.com/api/chat'
 
-function show_question(ask) {
+function on_send_question(ask) {
     console.log('user ask: ' + ask)
 }
 
-function show_answer(reply) {
+function on_receive_answer(reply) {
     console.log('robot answer: ' + reply)
 }
 
 function ask_question(msg, callback) {
-    show_question(msg)
+    on_send_question(msg)
 
     var fd = new FormData()
     fd.append('appkey', appkey)
@@ -29,7 +29,7 @@ function ask_question(msg, callback) {
         contentType: false,
         success: function(data, status) {
             if (data.msg != "") {
-                show_answer(data.msg)
+                on_receive_answer(data.msg)
 
                 if (typeof callback == "function") {
                     callback()

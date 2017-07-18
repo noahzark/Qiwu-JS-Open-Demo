@@ -70,9 +70,9 @@
 <!-- Core function script -->
 <script type="text/javascript" src="./js/core.js"></script>
 
-<!-- Overrides show_question and show_answer functions in demo.js -->
+<!-- Overrides on_send_question and on_receive_answer functions in demo.js -->
 <script>
-    function show_question(ask) {
+    function on_send_question(ask) {
         $('<li class="me-message">\
 	        <span class="me-message-content">' + ask + '</span>\
 	    </li>').appendTo(".chat-list");
@@ -80,7 +80,7 @@
         $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
     }
 
-    function show_answer(reply) {
+    function on_receive_answer(reply) {
         reply = reply.replaceAll('\n', '<br />')
         $('<li class="qw-message">\
 			<div class="qw-avator"></div>\
