@@ -88,6 +88,10 @@
 		</li>').appendTo(".chat-list");
         $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
     }
+
+    function send_hello() {
+        ask_question('HELLO')
+    }
 </script>
 
 <!-- Add listener to input box and send HELLO when page is ready -->
@@ -102,7 +106,7 @@
     })
 
     $(document).ready(function() {
-        ask_question('HELLO')
+        send_hello()
     })
 </script>
 
