@@ -1,11 +1,4 @@
-var test_cases = [
-    '我的充值失败了',
-    '充值',
-    '获取星星',
-    '我的钻石没有了',
-    '游戏卡顿',
-    '闪退'
-]
+var test_cases = []
 
 var ask_counter = 0
 
